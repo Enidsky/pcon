@@ -1,0 +1,109 @@
+router
+
+# node  comment     yPos     xPos
+n0	NA	0	1
+n10	NA	3	3
+n2	NA	3	0
+n4	NA	6	15
+n3	NA	6	12
+n12	NA	6	9
+n16	NA	6	6
+n6	NA	6	3
+n9	NA	6	0
+n15	NA	6	-3
+n21	NA	6	-6
+n1	NA	6	-9
+n34	NA	6	-12
+n5	NA	9	16
+n8	NA	9	13
+n13	NA	9	10
+n17	NA	9	7
+n18	NA	9	4
+n14	NA	9	1
+n11	NA	9	-1
+n24	NA	9	-4
+n35	NA	9	-7
+n7	NA	9	-10
+n20	NA	9	-13
+n22	NA	12	9
+n19	NA	12	6
+n37	NA	12	3
+n38	NA	12	0
+n25	NA	12	-3
+n33	NA	12	-6
+n23	NA	15	6
+n36	NA	15	3
+n26	NA	15	0
+n30	NA	15	-3
+n27	NA	18	7
+n31	NA	18	4
+n28	NA	18	1
+n29	NA	18	-1
+n32	NA	18	-4
+n39	NA	21	1
+
+link
+
+# srcNode   dstNode     bandwidth   metric  delay   queue
+n3	n4	100Mbps	1	10ms	20
+n4	n5	100Mbps	1	10ms	20
+n5	n4	100Mbps	1	10ms	20
+n4	n10	100Mbps	1	10ms	20
+n10	n3	100Mbps	1	10ms	20
+n10	n12	100Mbps	1	10ms	20
+n12	n16	100Mbps	1	10ms	20
+n16	n17	100Mbps	1	10ms	20
+n16	n10	100Mbps	1	10ms	20
+n1	n13	100Mbps	1	10ms	20
+n2	n15	100Mbps	1	10ms	20
+n15	n18	100Mbps	1	10ms	20
+n18	n20	100Mbps	1	10ms	20
+n18	n19	100Mbps	1	10ms	20
+n18	n16	100Mbps	1	10ms	20
+n19	n24	100Mbps	1	10ms	20
+n24	n25	100Mbps	1	10ms	20
+n24	n22	100Mbps	1	10ms	20
+n22	n23	100Mbps	1	10ms	20
+n23	n26	100Mbps	1	10ms	20
+n26	n25	100Mbps	1	10ms	20
+n22	n17	100Mbps	1	10ms	20
+n2	n21	100Mbps	1	10ms	20
+n21	n20	100Mbps	1	10ms	20
+n20	n15	100Mbps	1	10ms	20
+n15	n14	100Mbps	1	10ms	20
+n14	n16	100Mbps	1	10ms	20
+n16	n11	100Mbps	1	10ms	20
+n11	n8	100Mbps	1	10ms	20
+n8	n7	100Mbps	1	10ms	20
+n7	n6	100Mbps	1	10ms	20
+n6	n10	100Mbps	1	10ms	20
+n10	n9	100Mbps	1	10ms	20
+n9	n16	100Mbps	1	10ms	20
+n16	n24	100Mbps	1	10ms	20
+n24	n33	100Mbps	1	10ms	20
+n33	n30	100Mbps	1	10ms	20
+n30	n23	100Mbps	1	10ms	20
+n23	n27	100Mbps	1	10ms	20
+n23	n31	100Mbps	1	10ms	20
+n31	n30	100Mbps	1	10ms	20
+n33	n19	100Mbps	1	10ms	20
+n19	n20	100Mbps	1	10ms	20
+n17	n11	100Mbps	1	10ms	20
+n0	n10	100Mbps	1	10ms	20
+n0	n2	100Mbps	1	10ms	20
+n2	n12	100Mbps	1	10ms	20
+n12	n8	100Mbps	1	10ms	20
+n8	n35	100Mbps	1	10ms	20
+n35	n16	100Mbps	1	10ms	20
+n1	n2	100Mbps	1	10ms	20
+n2	n34	100Mbps	1	10ms	20
+n16	n34	100Mbps	1	10ms	20
+n19	n36	100Mbps	1	10ms	20
+n11	n37	100Mbps	1	10ms	20
+n38	n11	100Mbps	1	10ms	20
+n26	n28	100Mbps	1	10ms	20
+n29	n30	100Mbps	1	10ms	20
+n12	n13	100Mbps	1	10ms	20
+n31	n32	100Mbps	1	10ms	20
+n32	n30	100Mbps	1	10ms	20
+n31	n39	10Mbps	1	10ms	20

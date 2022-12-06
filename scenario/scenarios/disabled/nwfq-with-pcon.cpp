@@ -1,0 +1,85 @@
+#include "ns3/core-module.h"
+#include "ns3/network-module.h"
+#include "ns3/ndnSIM-module.h"
+
+namespace ns3 {
+
+int
+main(int argc, char* argv[])
+{
+  CommandLine cmd;
+  cmd.Parse(argc, argv);
+
+  AnnotatedTopologyReader topologyReader("", 25);
+  topologyReader.SetFileName("topologies/topo-6-node.txt");
+  topologyReader.Read();
+
+  // Install NDN stack on all nodes
+  ndn::StackHelper ndnHelper;
+  ndnHelper.setPolicy("nfd::cs::lru");
+  ndnHelper.setCsSize(10000);
+  ndnHelper.InstallAll();
+
+  // Choosing forwarding strategy
+  ndn::StrategyChoiceHelper::InstallAll("/", "/localhost/nfd/strategy/best-route");
+
+  // Installing global routing interface on all nodes
+  ndn::GlobalRoutingHelper ndnGlobalRoutingHelper;
+  ndnGlobalRoutingHelper.InstallAll();
+
+  // Getting containers for the consumer/producer
+  Ptr<Node> consumer1 = Names::Find<Node>("Src1");
+  Ptr<Node> consumer2 = Names::Find<Node>("Src2");
+
+  Ptr<Node> producer1 = Names::Find<Node>("Dst1");
+  Ptr<Node> producer2 = Names::Find<Node>("Dst2");
+
+  ndn::AppHelper consumerHelper("ns3::ndn::ConsumerNWFQ");
+  //consumerHelper.SetAttribute("Frequency", StringValue("100")); // 100 interests a second
+
+
+  // on the first consumer node install a Consumer application
+  // that will express interests in /dst1 namespace
+  consumerHelper.SetPrefix("/dst1");
+  consumerHelper.Install(consumer1);
+
+  // on the second consumer node install a Consumer application
+  // that will express interests in /dst2 namespace
+  consumerHelper.SetPrefix("/dst2");
+  //consumerHelper.SetAttribute("Frequency", StringValue("500")); // 100 interests a second
+  consumerHelper.Install(consumer2);
+
+  ndn::AppHelper producerHelper("ns3::ndn::Producer");
+  producerHelper.SetAttribute("PayloadSize", StringValue("1024"));
+
+  // Register /dst1 prefix with global routing controller and
+  // install producer that will satisfy Interests in /dst1 namespace
+  ndnGlobalRoutingHelper.AddOrigins("/dst1", producer1);
+  producerHelper.SetPrefix("/dst1");
+  producerHelper.Install(producer1);
+
+  // Register /dst2 prefix with global routing controller and
+  // install producer that will satisfy Interests in /dst2 namespace
+  ndnGlobalRoutingHelper.AddOrigins("/dst2", producer2);
+  producerHelper.SetPrefix("/dst2");
+  producerHelper.Install(producer2);
+
+  // Calculate and install FIBs
+  ndn::GlobalRoutingHelper::CalculateRoutes();
+
+  Simulator::Stop(Seconds(20.0));
+
+  ndn::L3RateTracer::InstallAll("rate-trace.txt", Seconds(0.5));
+  Simulator::Run();
+  Simulator::Destroy();
+
+  return 0;
+}
+
+} // namespace ns3
+
+int
+main(int argc, char* argv[])
+{
+  return ns3::main(argc, argv);
+}
